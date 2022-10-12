@@ -1,6 +1,12 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
-
+import {
+  SearchBarHeader,
+  SearchForm,
+  SearchFormButton,
+  SearchFormButtonLabel,
+  SearchFormInput,
+} from './Searchbar.styled';
 import PropTypes from 'prop-types';
 
 class SearchBar extends Component {
@@ -10,10 +16,15 @@ class SearchBar extends Component {
   handleImageNameChange = event => {
     this.setState({ imageName: event.currentTarget.value.toLowerCase() });
   };
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState + 1,
+    }));
+  };
   handleSubmit = event => {
     event.preventDefault();
     if (this.state.imageName.trim() === '') {
-      toast.error('Upsssssssssssssss');
+      toast.error('Введите что-нибудь');
       return;
     }
     this.props.onSubmit(this.state.imageName);
@@ -21,13 +32,15 @@ class SearchBar extends Component {
   };
   render() {
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
+      <SearchBarHeader>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <SearchFormButton type="submit" className="button">
+            <SearchFormButtonLabel className="button-label">
+              Search
+            </SearchFormButtonLabel>
+          </SearchFormButton>
 
-          <input
+          <SearchFormInput
             className="input"
             type="text"
             name="imageName"
@@ -37,8 +50,8 @@ class SearchBar extends Component {
             // autofocus
             placeholder="Search images and photos"
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchBarHeader>
     );
   }
 }

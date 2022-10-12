@@ -3,19 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchBar from '../components/Searchbar/Searchbar';
 import ImageGallery from '../components/ImageGallery/ImageGallery';
-import { Audio } from 'react-loader-spinner';
-const audio = (
-  <Audio
-    height="80"
-    width="80"
-    radius="9"
-    color="green"
-    ariaLabel="loading"
-    wrapperStyle
-    wrapperClass
-  />
-);
-
+import { AppContainer } from './App.styled';
 export class App extends Component {
   state = {
     imageName: '',
@@ -25,28 +13,66 @@ export class App extends Component {
     this.setState({ imageName });
   };
 
-  // async componentDidMount() {
-  //   const images = await axios.get(
-  //     `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${this.page}`
-  //   );
-  //   this.incrementPage();
-  //   console.log('ww', images.data.hits[0]);
-  //   return images;
-  // }
-  // incrementPage() {
-  //   this.page += 1;
-  // }
-  // resetPage() {
-  //   this.page = 1;
-  // }
-
   render() {
     return (
-      <div>
-        {<SearchBar onSubmit={this.handleFormSubmit} />}
+      <AppContainer>
+        <SearchBar onSubmit={this.handleFormSubmit} />
         <ImageGallery imageName={this.state.imageName} />
         <ToastContainer autoClose={3000} />
-      </div>
+      </AppContainer>
     );
   }
 }
+
+// export class App extends Component {
+//   state = {
+//     page: 1,
+//     query: '',
+//     items: [],
+//   };
+//   handleSubmit = e => {
+//     e.preventDefault();
+//     this.setState({
+//       page: 1,
+//       query: e.target.elements.query.value,
+//       items: [],
+//     });
+//     e.target.reset();
+//   };
+//   loadMore = () => {
+//     this.setState(prevState => ({
+//       page: prevState.page + 1,
+//     }));
+//   };
+//   componentDidUpdate(_, prevState) {
+//     console.log('prevState.page', prevState.page);
+//     console.log('this.state.page', this.state.page);
+//     console.log('prevState.query', prevState.query);
+//     console.log('this.state.query', this.state.query);
+//   }
+//   render() {
+//     return (
+//       <header className="searchbar">
+//         <form className="form" onSubmit={this.handleSubmit}>
+//           <button type="submit" className="button">
+//             <span className="button-label">Search</span>
+//           </button>
+
+//           <input
+//             className="input"
+//             type="text"
+//             name="query"
+//             // value={this.state.imageName}
+//             // onChange={this.handleImageNameChange}
+//             // autocomplete="off"
+//             // autofocus
+//             placeholder="Search images and photos"
+//           />
+//         </form>
+//         <button onClick={this.loadMore} type="button">
+//           Load more
+//         </button>
+//       </header>
+//     );
+//   }
+// }
