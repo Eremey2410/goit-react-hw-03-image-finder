@@ -5,7 +5,7 @@ import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryList } from './ImageGallery.styled';
 import BtnLoadMore from '../Button/Button';
 import PropTypes from 'prop-types';
-
+import ModalBox from '../Modal/Modal';
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '29482486-4af73e7428fa82566a6b382e2';
 class ImageGallery extends Component {
@@ -13,6 +13,13 @@ class ImageGallery extends Component {
     searchQuery: null,
     loading: false,
     page: 1,
+    isModalOpen: false,
+  };
+  openModal = () => {
+    this.setState({ isModalOpen: true });
+  };
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
   };
   loadMore = () => {
     this.setState(prevState => ({
@@ -41,15 +48,16 @@ class ImageGallery extends Component {
   }
   render() {
     console.log('searchQuery ', this.state.searchQuery);
-    const { searchQuery, loading } = this.state;
+    const { searchQuery, loading, isModalOpen } = this.state;
     return (
       <>
         <ImageGalleryList>
-          <ImageGalleryItem query={searchQuery} />
+          <ImageGalleryItem query={searchQuery} onOpenModal={this.openModal} />
         </ImageGalleryList>
 
         <BtnLoadMore onPage={this.loadMore} query={searchQuery} />
         {loading && <Loader />}
+        {isModalOpen && <ModalBox query={searchQuery} />}
       </>
     );
   }

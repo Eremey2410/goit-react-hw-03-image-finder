@@ -1,13 +1,13 @@
 import { GalleryItem, Image } from './ImageGalleryItem.styled';
 import PropTypes from 'prop-types';
 
-const ImageGalleryItem = ({ query }) => {
+const ImageGalleryItem = ({ query, onOpenModal }) => {
   return (
     <>
       {query &&
         query.hits.map(({ id, webformatURL, tags }) => (
           <GalleryItem key={id}>
-            <Image src={webformatURL} alt={tags} />
+            <Image src={webformatURL} alt={tags} onClick={onOpenModal} />
           </GalleryItem>
         ))}
     </>
