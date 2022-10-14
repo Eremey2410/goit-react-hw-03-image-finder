@@ -1,14 +1,16 @@
 import { LoadMore } from './Button.styled';
+import PropTypes from 'prop-types';
 
-const BtnLoadMore = ({ onPage, query }) => {
+const BtnLoadMore = ({ onClick }) => {
   return (
     <>
-      {query !== null && (
-        <LoadMore type="button" onClick={onPage}>
-          Load more
-        </LoadMore>
-      )}
+      <LoadMore type="button" onClick={onClick}>
+        Load more
+      </LoadMore>
     </>
   );
+};
+BtnLoadMore.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 export default BtnLoadMore;
