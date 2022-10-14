@@ -27,7 +27,6 @@ class SearchBar extends Component {
     this.setState({ searchQuery: '' });
   };
   render() {
-    console.log('searchQuery', this.state.searchQuery);
     return (
       <SearchBarHeader>
         <SearchForm onSubmit={this.handleSubmit}>
